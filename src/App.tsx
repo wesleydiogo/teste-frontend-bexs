@@ -1,11 +1,12 @@
 import './App.css';
-import { CreditCard } from './components';
+import { Container, CreditCard } from './components';
+import RoutesApp from './routes';
 
 function App() {
   return (
-    <div>
-      <CreditCard />
-    </div>
+    <Container>
+      <RoutesApp />
+    </Container>
   );
 }
 
