@@ -31,7 +31,7 @@ export const Container = styled.div`
     }
 
     .card__name {
-
+        text-transform: uppercase;
     }
 
     .card__date {

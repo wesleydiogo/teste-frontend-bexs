@@ -5,6 +5,7 @@ export const Input = styled.input`
     line-height: 20px;
     color: #3C3C3C;
     width: 100%;
+    min-width: 100px;
     
     margin-bottom: 50px;
 

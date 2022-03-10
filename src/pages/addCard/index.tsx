@@ -1,20 +1,33 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, CreditCard, Input } from '../../components';
 import * as C from './styles';
 
+import { useDispatch } from 'react-redux';
+import { addCard } from '../../redux/addCard/action.js';
+
+interface Card {
+    number: string,
+    name: string,
+    dateExpire: string,
+    cvv: string,
+    parc: number,
+};
 
 const AddCard = () => {
-    const [cardNumber, setCardNumber] = useState("");
-    const [cardName, setCardName] = useState("");
-    const [cardExpireDate, setCardExpireDate] = useState("");
-    const [cardCVV, setCardCVV] = useState("");
-    const [cardInstallments, setCardInstallments] = useState<number>();
+    const [creditCard, setCreditCard] = useState<Card>({} as Card);
+    const dispatch = useDispatch();
 
+    const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
+        dispatch(addCard({ ...creditCard, [e.currentTarget.name]: e.currentTarget.name }));
 
-    const handleSubmit = (e: any) => {
+        setCreditCard({
+            ...creditCard,
+            [e.currentTarget.name]: e.currentTarget.value
+        })
+    }
+
+    const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
-
-        console.log("Clicou");
 
     }
 
@@ -30,32 +43,43 @@ const AddCard = () => {
                 {/* STEPS COMPONENT */}
                 <C.Form onSubmit={handleSubmit}>
                     <Input
-                        value={cardNumber}
-                        onChange={e => setCardNumber(e.target.value)}
+                        name='number'
+                        mask='9999 9999 9999 9999'
+                        value={creditCard.number}
+                        onChange={handleChange}
                         placeholder='Número do cartão'
+
+                        type='text'
                     />
-                    <Input
-                        value={cardName}
-                        onChange={e => setCardName(e.target.value)}
+                    {/* <Input
+                        type='text'
+                        name='name'
+                        value={creditCard.name}
+                        onChange={handleChange}
                         placeholder='Nome (igual ao cartão)'
                     />
                     <div className='card__expireData__CVV'>
                         <Input
-                            value={cardExpireDate}
-                            onChange={e => setCardExpireDate(e.target.value)}
+                            type='text'
+                            name='dateExpire'
+                            value={creditCard.dateExpire}
+                            onChange={handleChange}
                             placeholder='Validade'
                         />
                         <Input
-                            value={cardCVV}
-                            onChange={e => setCardCVV(e.target.value)}
+                            type='text'
+                            name='cvv'
+                            value={creditCard.cvv}
+                            onChange={handleChange}
                             placeholder='CVV'
                         />
                     </div>
                     <Input
-                        value={cardInstallments}
-                        onChange={e => setCardInstallments(e.target.value)}
+                        value={creditCard.parc}
+                        name='parc'
+                        onChange={handleChange}
                         placeholder='Número de parcelas'
-                    />
+                    /> */}
                     <Button type="submit">
                         CONTINUAR
                     </Button>
