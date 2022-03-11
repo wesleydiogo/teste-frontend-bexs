@@ -4,11 +4,11 @@ interface Props {
     children: any,
 };
 
-const Container = ({ children }: Props) => {
+const Header = ({ children }: Props) => {
     return (
-        <main>
+        <header>
             {children}
-        </main>
+        </header>
     );
 }
-export default Container;
+export default Header;

@@ -1,0 +1,40 @@
+header {
+    min-width: 300px;
+    max-width: 600px;
+    height: 100vh;
+    background-color: #4BDE95;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.card__changePay {
+    color: #FFF;
+    font-size: 13px;
+    margin: 50px 0;
+
+    display: flex;
+    gap: 8px;
+
+    cursor: pointer;
+}
+.card__changePay:hover {
+    color: yellow;
+}
+.card__title {
+    color: #FFF;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 50px;
+
+    display: flex;
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    header {
+        height: 300px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}

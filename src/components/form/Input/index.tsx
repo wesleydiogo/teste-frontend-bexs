@@ -1,19 +1,39 @@
 import * as C from './styles';
-import InputMask from 'react-input-mask';
+import {
+    hadleNumber,
+    handleCVV,
+    handleValidade,
+} from '../../../helpers/cardFormat';
+import React from 'react';
 
 interface InputTypes {
-    name: string,
-    mask: string,
-    value: string,
+    name: 'numero' | 'nome' | 'validade' | 'cvv' | 'parcela',
+    mask?: string,
+    value: string | number,
     onChange: (e: React.FormEvent<HTMLInputElement>) => void,
     type?: string,
     placeholder: string
+};
+
+const formatValue = (e: React.FormEvent<HTMLInputElement>, inputName: string, inputValue: string) => {
+    switch (inputName) {
+        case 'numero':
+            return hadleNumber(e, inputValue)
+        case 'nome':
+            return inputValue.replace(/[0-9]/g, '');
+        case 'validade':
+            return handleValidade(e);
+        case 'cvv':
+            return handleCVV(e);
+        case 'parcelas':
+            return inputValue.replace(/[0-9]/g, '');
+        default:
+            return inputValue
+
+    }
 }
 
-const onlyNumbers = (str: string) => str.replace(/[^0-9]/g, '');
-const onlyText = (str: string) => str.replace(/[0-9]/g, '');
-
-const Input = ({ name, mask, value, onChange, type, placeholder }: InputTypes) => {
+const Input = ({ name, value, onChange, type, placeholder }: InputTypes) => {
 
     const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         onChange({
@@ -21,31 +41,19 @@ const Input = ({ name, mask, value, onChange, type, placeholder }: InputTypes) =
             currentTarget: {
                 ...e.currentTarget,
                 name,
-                value: onlyNumbers(e.currentTarget.value)
+                value: formatValue(
+                    e,
+                    e.currentTarget.name,
+                    e.currentTarget.value
+                )
             }
         });
     }
 
-    const handleKeyUp = (e: React.FormEvent<HTMLInputElement>) => {
-        e.currentTarget.maxLength = 10;
-        let value = e.currentTarget.value;
-        value = value.replace(/[^0-9]/g, '');
-        value = value.replace(/^(\d{4})(\d)/, ' ')
-        e.currentTarget.value = value;
-    }
-
     return (
-        // <InputMask className='card__input'
-        //     name={name}
-        //     mask={mask}
-        //     value={value}
-        //     onChange={handleChange}
-        //     placeholder={placeholder}
-        // />
 
 
         <C.Input
-            // onKeyUp={handleKeyUp}
             type={type}
             name={name}
             value={value}

@@ -1,4 +1,4 @@
-import * as C from './styles';
+import './styles.css';
 
 interface Props {
     children: string,
@@ -9,7 +9,9 @@ interface Props {
 
 const Button = ({ type, children }: Props) => {
     return (
-        <C.Button type={type} > {children}</C.Button>
+        <button type={type}>
+            {children}
+        </button>
     );
 }
 
