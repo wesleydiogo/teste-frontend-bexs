@@ -1,21 +1,30 @@
-export const hadleNumber = (e: React.FormEvent<HTMLInputElement>, value: string) => {
+export const handleNumber = (e: React.FormEvent<HTMLInputElement>) => {
     e.currentTarget.maxLength = 19;
   // remove all non digit characters
-  var value = value.replace(/\D/g, '');
+  var value: string = e.currentTarget.value.replace(/\D/g, '');
   var formattedValue;
   var maxLength;
-  // american express, 15 digits
-  if ((/^3[47]\d{0,13}$/).test(value)) {
+  
+  if (value.match(/^3[47]\d{0,13}$/)) { // american express, 15 digitos
+    console.log("AMERICAN SPRESS");
     formattedValue = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{6})/, '$1 $2 ');
     maxLength = 17;
-  } else if ((/^3(?:0[0-5]|[68]\d)\d{0,11}$/).test(value)) { // diner's club, 14 digitos
+  } else if (value.match(/^3(?:0[0-5]|[68]\d)\d{0,11}$/)) { // diner's club, 14 digitos
+    console.log("DINER'S CLUB");
     formattedValue = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{6})/, '$1 $2 ');
     maxLength = 16;
-  } else if ((/^\d{0,16}$/).test(value)) { // regular cc number, 16 digitos
+  } else if (value.match(/^\d{0,16}$/)) { // regular cc number, 16 digitos
+    // console.log("DINER'S CLUB");
     formattedValue = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{4})/, '$1 $2 ').replace(/(\d{4}) (\d{4}) (\d{4})/, '$1 $2 $3 ');
     maxLength = 19;
   }
   return formattedValue;
+}
+export const handleName = (e: React.FormEvent<HTMLInputElement>) => {
+  e.currentTarget.maxLength = 20;
+  let value = e.currentTarget.value.replace(/[^a-záàâãéèêíïóôõöúçñ ]+$/i, '');
+
+  return value;
 }
 export const handleValidade = (e: React.FormEvent<HTMLInputElement>) => {
   e.currentTarget.maxLength = 5;
@@ -35,5 +44,5 @@ export const handleValidade = (e: React.FormEvent<HTMLInputElement>) => {
 export const handleCVV = (e: React.FormEvent<HTMLInputElement>) => {
   e.currentTarget.maxLength = 3;
   let value: any = e.currentTarget.value;
-  return value = value.replace(/[^0-9]/g, '');
+  return value = value.replace(/^\D/g, '');
 }

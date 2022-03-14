@@ -1,6 +1,7 @@
 import * as C from './styles';
 import {
-    hadleNumber,
+    handleNumber,
+    handleName,
     handleCVV,
     handleValidade,
 } from '../../../helpers/cardFormat';
@@ -17,20 +18,20 @@ interface InputTypes {
     placeholder: string
 };
 
-const formatValue = (e: React.FormEvent<HTMLInputElement>, inputName: string, inputValue: string) => {
-    switch (inputName) {
+const formatValue = (e: React.FormEvent<HTMLInputElement>) => {
+    switch (e.currentTarget.name) {
         case 'numero':
-            return hadleNumber(e, inputValue)
+            return handleNumber(e);
         case 'nome':
-            return inputValue.replace(/[0-9]/g, '');
+            return handleName(e);
         case 'validade':
             return handleValidade(e);
         case 'cvv':
             return handleCVV(e);
         case 'parcelas':
-            return inputValue.replace(/[0-9]/g, '');
+            return e.currentTarget.name.replace(/[0-9]/g, '');
         default:
-            return inputValue
+            return e.currentTarget.name
     }
 }
 
@@ -42,11 +43,7 @@ const Input = ({ name, value, onChange, onFocus, onBlur, type, placeholder }: In
             currentTarget: {
                 ...e.currentTarget,
                 name,
-                value: formatValue(
-                    e,
-                    e.currentTarget.name,
-                    e.currentTarget.value
-                )
+                value: formatValue(e)
             }
         });
     }
