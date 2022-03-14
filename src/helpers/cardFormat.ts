@@ -35,5 +35,5 @@ export const handleValidade = (e: React.FormEvent<HTMLInputElement>) => {
 export const handleCVV = (e: React.FormEvent<HTMLInputElement>) => {
   e.currentTarget.maxLength = 3;
   let value: any = e.currentTarget.value;
-  value = value.replace(/^([1-9]\/|[2-9])$/g, '0$1/');
+  return value = value.replace(/^([1-9]\/|[2-9])$/g, '0$1/');
 }

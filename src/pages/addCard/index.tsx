@@ -13,22 +13,20 @@ const AddCard = () => {
         cvv: '',
         parcelas: 0,
     });
+    const [cardFlipped, setCardFlipped] = useState<boolean>(false);
     const dispatch = useDispatch();
     const selectCard = useSelector<any>(state => state.card)
-
 
     const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         setCreditCard({
             ...creditCard,
             [e.currentTarget.name]: e.currentTarget.value
-        });
+        });        
         dispatch(addCard({ [e.currentTarget.name]: e.currentTarget.value }));
     }
-    console.log(creditCard);
 
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
-
     }
 
     return (
@@ -66,7 +64,7 @@ const AddCard = () => {
                     </div>
                     <p>Adicione um novo cartão de crédito</p>
                 </div>
-                <CreditCard />
+                <CreditCard cardFlipped={cardFlipped} />
             </Header>
             <Content>
                 {/* STEPS COMPONENT */}
@@ -76,11 +74,8 @@ const AddCard = () => {
                         value={creditCard.numero}
                         onChange={(handleChange)}
                         placeholder='Número do cartão'
-
-                        type='text'
                     />
                     <Input
-                        type='text'
                         name='nome'
                         value={creditCard.nome}
                         onChange={handleChange}
@@ -88,17 +83,17 @@ const AddCard = () => {
                     />
                     <div className='card__expireData__CVV'>
                         <Input
-                            type='text'
                             name='validade'
                             value={creditCard.validade}
                             onChange={handleChange}
                             placeholder='Validade'
                         />
                         <Input
-                            type='text'
                             name='cvv'
                             value={creditCard.cvv}
                             onChange={handleChange}
+                            onFocus={() => {setCardFlipped(true)}}
+                            onBlur={() => {setCardFlipped(false)}}
                             placeholder='CVV'
                         />
                     </div>

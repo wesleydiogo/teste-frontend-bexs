@@ -1,6 +1,7 @@
 main {
     display: flex;
     flex-direction: row;
+    min-width: 360px;
 }
 
 @media (max-width: 600px) {

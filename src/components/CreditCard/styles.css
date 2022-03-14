@@ -8,12 +8,31 @@
     
     position: absolute;
     
-    box-shadow: 8px 8px 10px #808080;
+    box-shadow: 4px 4px 10px #444;
     
     display: flex;
     flex-direction: column;
     justify-content: end;
 }
+.is-flipped {
+    transition: all ease .8s;
+    transform: perspective(800px) rotateY(180deg);
+    transform-style: preserve-3d;
+}
+.card__front-face, .card__back-face {
+    backface-visibility: hidden;
+}
+.card__back-face {
+    transform: rotateY(180deg);
+}
+
+
+
+
+
+
+
+
 .card__numero {
     font-size: 26px;
     margin-bottom: 38px;
@@ -26,16 +45,10 @@
 .card__nome {
     text-transform: uppercase;
 }
-.card__date {
-
-}
-
 @media (max-width: 600px) {
     .card {
         padding: 15px;
         top: 240px;
-        left: 50%;
-        transform: translateX(-50%);
 
         width: 280px;
         height: 170px;    

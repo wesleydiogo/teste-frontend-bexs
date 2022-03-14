@@ -11,6 +11,8 @@ interface InputTypes {
     mask?: string,
     value: string | number,
     onChange: (e: React.FormEvent<HTMLInputElement>) => void,
+    onFocus?: () => void,
+    onBlur?: () => void,
     type?: string,
     placeholder: string
 };
@@ -29,11 +31,10 @@ const formatValue = (e: React.FormEvent<HTMLInputElement>, inputName: string, in
             return inputValue.replace(/[0-9]/g, '');
         default:
             return inputValue
-
     }
 }
 
-const Input = ({ name, value, onChange, type, placeholder }: InputTypes) => {
+const Input = ({ name, value, onChange, onFocus, onBlur, type, placeholder }: InputTypes) => {
 
     const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         onChange({
@@ -51,13 +52,13 @@ const Input = ({ name, value, onChange, type, placeholder }: InputTypes) => {
     }
 
     return (
-
-
         <C.Input
             type={type}
             name={name}
             value={value}
             onChange={handleChange}
+            onFocus={onFocus}
+            onBlur={onBlur}
             placeholder={placeholder}
         />
     );
