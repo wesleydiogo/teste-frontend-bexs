@@ -11,14 +11,13 @@
     flex-direction: column;
     justify-content: end;
     background-size: cover;
-    transition: none;
 }
 
 .card__bg-default {
     background-image: url('../../assets/svg/default__credit-card.svg');
 }
 
-.card__bg-visa {
+.card__bg-Visa {
     background-image: url('../../assets/svg/visa__credit-card.svg');
 }
 

@@ -24,13 +24,13 @@ const AddCard = () => {
             [e.currentTarget.name]: e.currentTarget.value
         });
         dispatch(addCard({ [e.currentTarget.name]: e.currentTarget.value }));
-        console.log(selectCard);
     }
+    
+    console.log(selectCard);
 
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
     }
-
     
     return (
         <>

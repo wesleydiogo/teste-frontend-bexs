@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { CardType } from '../../types/card';
 import './styles.css';
@@ -11,26 +12,36 @@ interface Props {
 }
 
 const CreditCard = ({ cardFlipped }: Props) => {
-    const selectCard = useSelector((state: RootState) => state.card);
+    const [flagClassName, setFlagClassName] = useState<string>("card__bg-default");
+    const card = useSelector((state: RootState) => state.card);
+
+    // REFATORAR ESTE CODIGO EM BREVE
+    useEffect(() => {
+        if (card.flag) {
+            setFlagClassName(`card__bg-${card.flag}`);
+        } else {
+            return setFlagClassName("card__bg-default");
+        }
+    }, [card.flag])
 
     return (
-        <div className={`card card__bg-visa ${!!cardFlipped ? 'is-flipped' : ''}`}>
+        <div className={`card ${flagClassName} ${!!cardFlipped ? 'is-flipped' : ''}`}>
             <div className="card__front-face">
                 <div className='card__numero'>
-                    {selectCard.numero}
+                    {card.numero}
                 </div>
 
                 <div className='card__info__validade'>
                     <div className='card__nome'>
-                        {selectCard.nome}
+                        {card.nome}
                     </div>
                     <div className='card__validade'>
-                        {selectCard.validade}
+                        {card.validade}
                     </div>
                 </div>
             </div>
             <span className="card__back-face">
-                <div>{selectCard.cvv}</div>
+                <div>{card.cvv}</div>
             </span>
         </div>
     );
