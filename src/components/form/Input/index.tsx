@@ -5,7 +5,8 @@ import {
     handleCVV,
     handleValidade,
 } from '../../../helpers/cardFormat';
-import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addCard } from '../../../redux/addCard/action';
 
 interface InputTypes {
     name: 'numero' | 'nome' | 'validade' | 'cvv' | 'parcela',
@@ -18,24 +19,33 @@ interface InputTypes {
     placeholder: string
 };
 
-const formatValue = (e: React.FormEvent<HTMLInputElement>) => {
-    switch (e.currentTarget.name) {
-        case 'numero':
-            return handleNumber(e);
-        case 'nome':
-            return handleName(e);
-        case 'validade':
-            return handleValidade(e);
-        case 'cvv':
-            return handleCVV(e);
-        case 'parcelas':
-            return e.currentTarget.name.replace(/[0-9]/g, '');
-        default:
-            return e.currentTarget.name
-    }
-}
 
 const Input = ({ name, value, onChange, onFocus, onBlur, type, placeholder }: InputTypes) => {
+    const dispatch = useDispatch();
+
+    const setFlagCard = (bandeira: string) => {
+        dispatch(addCard({
+            flag: bandeira
+        }));
+    };
+
+    const formatValue = (e: React.FormEvent<HTMLInputElement>) => {
+
+        switch (e.currentTarget.name) {
+            case 'numero':
+                return handleNumber(e, setFlagCard);
+            case 'nome':
+                return handleName(e);
+            case 'validade':
+                return handleValidade(e);
+            case 'cvv':
+                return handleCVV(e);
+            case 'parcelas':
+                return e.currentTarget.name.replace(/[0-9]/g, '');
+            default:
+                return e.currentTarget.name
+        }
+    }
 
     const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         onChange({

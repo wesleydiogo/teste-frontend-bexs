@@ -1,5 +1,4 @@
-export const BANDEIRAS = [
-    { // COMEÇA COM 4
+export const BANDEIRAS = [{ // COMEÇA COM 4
         bandeira: 'Visa',
         maxLength: 16,
         maxCVV: 3,

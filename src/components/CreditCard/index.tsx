@@ -14,7 +14,7 @@ const CreditCard = ({ cardFlipped }: Props) => {
     const selectCard = useSelector((state: RootState) => state.card);
 
     return (
-        <div className={`card ${!!cardFlipped ? 'is-flipped' : ''}`}>
+        <div className={`card card__bg-visa ${!!cardFlipped ? 'is-flipped' : ''}`}>
             <div className="card__front-face">
                 <div className='card__numero'>
                     {selectCard.numero}
