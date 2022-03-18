@@ -8,7 +8,7 @@ import { addCard } from '../../redux/addCard/action';
 const AddCard = () => {
     const [creditCard, setCreditCard] = useState<CardType>({
         numero: '',
-        flag: '',
+        bandeira: '',
         nome: '',
         validade: '',
         cvv: '',
@@ -26,8 +26,6 @@ const AddCard = () => {
         dispatch(addCard({ [e.currentTarget.name]: e.currentTarget.value }));
     }
     
-    console.log(selectCard);
-
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
     }

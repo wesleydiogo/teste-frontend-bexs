@@ -5,8 +5,7 @@ import { AddCard } from "../pages";
 const RoutesApp = () => {
     return (
         <Routes>
-            <Route path="/add-card" element={<AddCard />} />
-            <Route path='/' element={<Navigate to='/add-card' />} />
+            <Route path={`${process.env.PUBLIC_URL}/`} element={<AddCard />} />
         </Routes>
     );
 };

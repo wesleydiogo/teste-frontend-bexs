@@ -25,7 +25,7 @@ const Input = ({ name, value, onChange, onFocus, onBlur, type, placeholder }: In
 
     const setFlagCard = (bandeira: string) => {
         dispatch(addCard({
-            flag: bandeira
+            bandeira
         }));
     };
 

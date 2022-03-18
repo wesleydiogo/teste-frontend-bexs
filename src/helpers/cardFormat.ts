@@ -1,36 +1,78 @@
 import { BANDEIRAS } from "./CONSTANTS";
 
 export const handleNumber = (e: React.FormEvent<HTMLInputElement>, setFlagCard: (bandeira: string) => void) => {
-  var value: string = e.currentTarget.value.replace(/\D/g, '');
-  var formattedValue;
-  
-  BANDEIRAS.forEach((bandeira) => {
-    if (value.match(bandeira.regexNumberPattern)) {
-      console.log(`A bandeira do cartão é ${bandeira.bandeira}.`);
-      
-      bandeira.bandeira && setFlagCard(bandeira.bandeira);
-      
-      e.currentTarget.maxLength = bandeira.maxLength;
-      return formattedValue = value.replace(bandeira.regexNumberFormat, '$1 $2 ');
-    } else {
-      e.currentTarget.maxLength = 19;
-      
-      return formattedValue = value.replace(/(\d{4})/, '$1 ').replace(/(\d{4}) (\d{6})/, '$1 $2 ');
-    }
-  })
+  let inputValue: string = e.currentTarget.value.replace(/\D/g, '');
+  let formattedValue;
 
-  return formattedValue;
+  const validateCard = (inputValue: string) => {
+    let sum = 0;
+    let shouldDouble = false;
+
+    let valid = false;
+    let accepted = false;
+
+    // Algoritmo de Luhn
+    for (let i = inputValue.length - 1; i >= 0; i--) {
+      let digit = parseInt(inputValue.charAt(i));
+
+      if (shouldDouble) {
+        if ((digit *= 2) > 9) digit -= 9;
+      }
+
+      sum += digit;
+      shouldDouble = !shouldDouble;
+    }
+    valid = (sum % 10) === 0;
+
+    // Padrões RegEx
+    BANDEIRAS.forEach((bandeira) => {
+      let regex = bandeira.regexNumberPattern;
+
+      if (regex.test(inputValue)) {
+        setFlagCard(bandeira.nome);
+
+        accepted = true;
+      }
+
+    });
+
+    console.log(valid && accepted);
+    
+    return valid && accepted;
+  }
+  validateCard(inputValue);
+  
+  return formattedValue = inputValue.replace(/[\d]{4}[\D]{4}/, 'x');
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const handleName = (e: React.FormEvent<HTMLInputElement>) => {
   e.currentTarget.maxLength = 20;
-  let value = e.currentTarget.value.replace(/[^a-záàâãéèêíïóôõöúçñ ]+$/i, '');
+  let inputValue = e.currentTarget.value.replace(/[^a-záàâãéèêíïóôõöúçñ ]+$/i, '');
 
-  return value;
+  return inputValue;
 }
 export const handleValidade = (e: React.FormEvent<HTMLInputElement>) => {
   e.currentTarget.maxLength = 5;
-  let value: any = e.currentTarget.value;
-  return value = value.replace(
+  let inputValue: any = e.currentTarget.value;
+  return inputValue = inputValue.replace(
     /[^0-9]/g, '' // To allow only numbers
   ).replace(
     /^([2-9])$/g, '0$1' // To handle 3 > 03
@@ -44,6 +86,6 @@ export const handleValidade = (e: React.FormEvent<HTMLInputElement>) => {
 }
 export const handleCVV = (e: React.FormEvent<HTMLInputElement>) => {
   e.currentTarget.maxLength = 3;
-  let value: any = e.currentTarget.value;
-  return value = value.replace(/^\D/g, '');
+  let inputValue: any = e.currentTarget.value;
+  return inputValue = inputValue.replace(/^\D/g, '');
 }

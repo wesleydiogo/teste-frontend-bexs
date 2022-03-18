@@ -6,7 +6,7 @@ import { CardType } from '../../types/card';
 
 const INITIAL_STATE: CardType = {
     numero: "**** **** **** ****",
-    flag: "",
+    bandeira: "None",
     nome: "Nome do titular",
     validade: "MM/AA",
     cvv: "***",
