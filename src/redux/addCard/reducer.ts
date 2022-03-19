@@ -10,10 +10,12 @@ const INITIAL_STATE: CardType = {
     nome: "Nome do titular",
     validade: "MM/AA",
     cvv: "***",
+    cvvLength: 3,
     parcelas: 0,
 }
 
 export default (state = INITIAL_STATE, action: AnyAction) => {
+    
     switch (action.type) {
         case ADD_CARD:
             return {

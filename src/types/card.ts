@@ -4,5 +4,6 @@ export interface CardType {
     nome: string,
     validade: string,
     cvv: string,
+    cvvLength: number,
     parcelas: number
 };

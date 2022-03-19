@@ -12,6 +12,7 @@ const AddCard = () => {
         nome: '',
         validade: '',
         cvv: '',
+        cvvLength: 0,
         parcelas: 0,
     });
     const [cardFlipped, setCardFlipped] = useState<boolean>(false);

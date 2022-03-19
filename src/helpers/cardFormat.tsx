@@ -1,15 +1,17 @@
+import { useSelector } from "react-redux";
 import { BANDEIRAS } from "./CONSTANTS";
 
-export const handleNumber = (e: React.FormEvent<HTMLInputElement>, setFlagCard: (bandeira: string) => void) => {
+export const handleNumber = (e: React.FormEvent<HTMLInputElement>, setCard: (bandeira: string, cvvLength: number) => void) => {
   let inputValue: string = e.currentTarget.value.replace(/\D/g, '');
   let formattedValue;
+
+  let valid = false;
+  let identified = false;
 
   const validateCard = (inputValue: string) => {
     let sum = 0;
     let shouldDouble = false;
 
-    let valid = false;
-    let accepted = false;
 
     // Algoritmo de Luhn
     for (let i = inputValue.length - 1; i >= 0; i--) {
@@ -29,40 +31,28 @@ export const handleNumber = (e: React.FormEvent<HTMLInputElement>, setFlagCard: 
       let regex = bandeira.regexNumberPattern;
 
       if (regex.test(inputValue)) {
-        setFlagCard(bandeira.nome);
+        setCard(bandeira.marca, bandeira.cvvLength);
 
-        accepted = true;
+
+        
+        identified = true;
+
+        valid && identified && console.log(`Cartão ${bandeira.marca} válido.`);
+        !valid && identified && console.log(`Cartão ${bandeira.marca} inválido.`);
+        !valid && !identified && console.log(`Número de cartão inválido.`);
+
       }
 
     });
 
-    console.log(valid && accepted);
-    
-    return valid && accepted;
+    return formattedValue = inputValue.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    // return valid && identified;
   }
   validateCard(inputValue);
-  
-  return formattedValue = inputValue.replace(/[\d]{4}[\D]{4}/, 'x');
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const handleName = (e: React.FormEvent<HTMLInputElement>) => {
   e.currentTarget.maxLength = 20;
   let inputValue = e.currentTarget.value.replace(/[^a-záàâãéèêíïóôõöúçñ ]+$/i, '');
@@ -84,8 +74,9 @@ export const handleValidade = (e: React.FormEvent<HTMLInputElement>) => {
     /^([0-1]{1}[0-9]{1})([0-9]{1,2}).*/g, '$1/$2' // To handle 113 > 11/3
   );
 }
-export const handleCVV = (e: React.FormEvent<HTMLInputElement>) => {
-  e.currentTarget.maxLength = 3;
+export const handleCVV = (e: React.FormEvent<HTMLInputElement>, cvvLength: number) => {  
+
+  e.currentTarget.maxLength = cvvLength;
   let inputValue: any = e.currentTarget.value;
   return inputValue = inputValue.replace(/^\D/g, '');
 }
