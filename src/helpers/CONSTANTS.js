@@ -1,5 +1,4 @@
-export const BANDEIRAS = [
-    {
+export const BANDEIRAS = [{
         marca: 'Elo',
         tamanho: 16,
         cvvLength: 3,

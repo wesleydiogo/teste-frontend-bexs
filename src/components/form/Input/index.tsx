@@ -4,7 +4,7 @@ import {
     handleName,
     handleCVV,
     handleValidade,
-} from '../../../helpers/cardFormat';
+} from '../../../helpers/ccValidation';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCard } from '../../../redux/addCard/action';
 import { CardType } from '../../../types/card';
@@ -22,7 +22,7 @@ interface InputTypes {
 
 interface DefaultRootState {
     card: CardType
-}
+};
 
 const Input = ({ name, value, onChange, onFocus, onBlur, type, placeholder }: InputTypes) => {
     const dispatch = useDispatch();
